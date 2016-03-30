@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
 import {ReactiveDict} from 'meteor/reactive-dict';
 
@@ -39,13 +40,7 @@ Template.body.events({
         var target = event.target;
         var text = target.text.value;
 
-        Tasks.insert({
-            text: text,
-            createdAt: Date.now(),
-            owner: Meteor.userId(),
-            username: Meteor.user().username,
-        })
-
+        Meteor.call('tasks.insert', text);
         target.text.value = '';
     },
 
